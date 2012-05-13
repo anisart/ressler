@@ -52,9 +52,10 @@ private:
     }
 
 
-    double dy1(double x1, double y1, double z1, double x2, double y2, double z2, bool sync = true) // false!!!
+    double dy1(double x1, double y1, double z1, double x2, double y2, double z2)
     {
-        if (sync) return w1 * x1 + a * y1 + d * (y2 - y1);
+        if ((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) < r * r)
+            return w1 * x1 + a * y1 + d * (y2 - y1);
         else return w1 * x1 + a * y1;
     }
 
@@ -68,9 +69,10 @@ private:
         return -w2 * y2 - z2;
     }
 
-    double dy2(double x1, double y1, double z1, double x2, double y2, double z2, bool sync = true) // false!!!
+    double dy2(double x1, double y1, double z1, double x2, double y2, double z2)
     {
-        if (sync) return w2 * x2 + a * y2 + d * (y1 - y2);
+        if ((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) < r * r)
+            return w2 * x2 + a * y2 + d * (y1 - y2);
         else return w2 * x2 + a * y2;
     }
 

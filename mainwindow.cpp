@@ -46,7 +46,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     solver(5, 5, 5, 1, 1, 1);
     paintGraphs();
-    startTimer(10);
+    startTimer(1);
 }
 
 MainWindow::~MainWindow()
@@ -56,7 +56,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::paintGraphs()
 {
-    if (!solved)
+    if ((!solved))
         return;
 
     curve1->setRawSamples(x1, y1, stepCount);
@@ -115,8 +115,6 @@ void MainWindow::solver(double x10, double y10, double z10, double x20, double y
     {
         double X1, X2, X3, X4, Y1, Y2, Y3, Y4, Z1, Z2, Z3, Z4;
         double X12, X22, X32, X42, Y12, Y22, Y32, Y42, Z12, Z22, Z32, Z42;
-
-//        if (pow(x1[i] - x2[i], 2) + pow(y1[i] - y2[i], 2) < r) qDebug()<<1; else qDebug()<<0;
 
         X1 = dx1(x1[i - 1], y1[i - 1], z1[i - 1], x2[i - 1], y2[i - 1], z2[i - 1]) * dt;
         Y1 = dy1(x1[i - 1], y1[i - 1], z1[i - 1], x2[i - 1], y2[i - 1], z2[i - 1]) * dt;
@@ -210,7 +208,7 @@ void MainWindow::solver(double x10, double y10, double z10, double x20, double y
 
 void MainWindow::timerEvent(QTimerEvent *)
 {
-    if (!solved)
+    if ((!solved) or (j > stepCount - 2))
         return;
     j++;
 
@@ -222,10 +220,8 @@ void MainWindow::timerEvent(QTimerEvent *)
         y1r.append(y1[l]);
         x2r.append(x2[l]);
         y2r.append(y2[l]);
-//        qDebug()<<l;
     }
-//    qDebug()<<"===";
-//    if (pow(x1[j] - x2[j], 2) + pow(y1[j] - y2[j], 2) < r*r) qDebug()<<1; else qDebug()<<0;
+    qDebug()<<j;
 
     curve4->setSamples(x1r, y1r);
     curve4->attach(ui->qwtPlot_4);
