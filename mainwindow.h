@@ -84,7 +84,7 @@ private:
     void paintGraphs();
 
 protected:
-    void timerEvent(QTimerEvent *);
+    void timerEvent(QTimerEvent *e);
 };
 
 #endif // MAINWINDOW_H

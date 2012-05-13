@@ -206,9 +206,9 @@ void MainWindow::solver(double x10, double y10, double z10, double x20, double y
     sum2 /= stepCount - 2;
 }
 
-void MainWindow::timerEvent(QTimerEvent *)
+void MainWindow::timerEvent(QTimerEvent *e)
 {
-    if ((!solved) or (j > stepCount - 2))
+    if (!solved)
         return;
     j++;
 
@@ -221,7 +221,7 @@ void MainWindow::timerEvent(QTimerEvent *)
         x2r.append(x2[l]);
         y2r.append(y2[l]);
     }
-    qDebug()<<j;
+//    qDebug()<<j;
 
     curve4->setSamples(x1r, y1r);
     curve4->attach(ui->qwtPlot_4);
@@ -234,4 +234,10 @@ void MainWindow::timerEvent(QTimerEvent *)
     mark2->attach(ui->qwtPlot_4);
 
     ui->qwtPlot_4->replot();
+
+    if (j > stepCount - 3)
+    {
+        killTimer(e->timerId());
+        return;
+    }
 }
