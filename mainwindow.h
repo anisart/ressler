@@ -54,7 +54,7 @@ private:
 
     double dy1(double x1, double y1, double z1, double x2, double y2, double z2)
     {
-        if ((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) < r * r)
+        if ((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) < r * r) // не те x и y взяты!!!
             return w1 * x1 + a * y1 + d * (y2 - y1);
         else return w1 * x1 + a * y1;
     }
@@ -71,7 +71,7 @@ private:
 
     double dy2(double x1, double y1, double z1, double x2, double y2, double z2)
     {
-        if ((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) < r * r)
+        if ((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) < r * r) // не те x и y взяты!!!
             return w2 * x2 + a * y2 + d * (y1 - y2);
         else return w2 * x2 + a * y2;
     }
