@@ -18,19 +18,14 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
-//    enum { num = 2 };
     
 private:
     Ui::MainWindow *ui;
-    QwtPlotCurve **curve; //*curve [num];
+    QwtPlotCurve **curve;
     QwtPlotMarker **mark;
 
     int t;
     double **x, **y, **z;
-    double **dxdt, **dydt, **dzdt;
-    double **dxdt2, **dydt2, **dzdt2;
-    double **u;  //частота
 
     double *w;
     double d;
@@ -64,8 +59,6 @@ private:
     {
         return 0.1 + Z[k] * (X[k] - 8.5);
     }
-
-//    void paintGraphs();
 
 protected:
     void timerEvent(QTimerEvent *e);
