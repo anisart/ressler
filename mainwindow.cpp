@@ -7,27 +7,27 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    num = 2;
+    num = 1;
     curve = new QwtPlotCurve * [num];
     mark = new QwtPlotMarker * [num];
 
-    for (int i = 0; i < num; ++i)
+    for (int j = 0; j < num; ++j)
     {
-        curve[i] = new QwtPlotCurve("Curve "/* + QString(i)*/);
-        curve[i]->setRenderHint(QwtPlotItem::RenderAntialiased);
-        curve[i]->setPen(QPen(Qt::red,1));
+        curve[j] = new QwtPlotCurve("Curve "/* + QString(j)*/);
+        curve[j]->setRenderHint(QwtPlotItem::RenderAntialiased);
+//        curve[j]->setPen(QPen(Qt::red,1));
 
-        mark[i] = new QwtPlotMarker;
-        mark[i]->setSymbol(new QwtSymbol(QwtSymbol::Ellipse, QColor(Qt::transparent), QColor(Qt::red), QSize(5,5)));
+        mark[j] = new QwtPlotMarker;
+        mark[j]->setSymbol(new QwtSymbol(QwtSymbol::Ellipse, QColor(Qt::transparent), QColor(Qt::red), QSize(5,5)));
     }
 
-    //    ui->qwtPlot->setAxisScale(QwtPlot::xBottom, -20, 20);
-    //    ui->qwtPlot->setAxisScale(QwtPlot::yLeft, -20, 20);
+//        ui->qwtPlot->setAxisScale(QwtPlot::xBottom, -20, 20);
+//        ui->qwtPlot->setAxisScale(QwtPlot::yLeft, -20, 20);
 
     solved = false;
-    d = 0.5;
+    d = 0; //0.5
     a = 0.16;
-    r = 2;
+    r = 0;////2;
     Tmin = 0;
     Tmax = 200;
     count = 10000;
@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     w = new double[num]; // !!!
     w[0] = 0.98;
-    w[1] = 1.02;
+//    w[1] = 1.02;
 
     double startX[] = {5, 1};
     double startY[] = {5, 1};

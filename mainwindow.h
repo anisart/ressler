@@ -54,7 +54,7 @@ private:
     {
         double sync = 0;
         for (int i = 0; i < num; ++i)
-            if ((x[i][l] - x[k][l]) * (x[i][l] - x[k][l]) + (y[i][l] - y[k][l]) * (y[i][l] - y[k][l]) < r * r)
+            if ((x[i][l-1] - x[k][l-1]) * (x[i][l-1] - x[k][l-1]) + (y[i][l-1] - y[k][l-1]) * (y[i][l-1] - y[k][l-1]) < r * r)
                 sync += d * (Y[i] - Y[k]);
 
         return w[k] * X[k] + a * Y[k] + sync;
