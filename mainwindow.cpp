@@ -154,16 +154,16 @@ void MainWindow::solver(double x10, double y10, double z10, double x20, double y
 
         X4 = dx1(x1[i - 1] + X3, y1[i - 1] + Y3, z1[i - 1] + Z3,
                  x2[i - 1] + X32, y2[i - 1] + Y32, z2[i - 1] + Z32) * dt;
-        Y4 = dy1(x1[i - 1] + X3, y1[i - 1] + Y3, z1[i - 1] + Z32,
+        Y4 = dy1(x1[i - 1] + X3, y1[i - 1] + Y3, z1[i - 1] + Z3,
                  x2[i - 1] + X32, y2[i - 1] + Y32, z2[i - 1] + Z32) * dt;
-        Z4 = dz1(x1[i - 1] + X3, y1[i - 1] + Y32, z1[i - 1] + Z32,
+        Z4 = dz1(x1[i - 1] + X3, y1[i - 1] + Y3, z1[i - 1] + Z3,
                  x2[i - 1] + X32, y2[i - 1] + Y32, z2[i - 1] + Z32) * dt;
 
         X42 = dx2(x1[i - 1] + X3, y1[i - 1] + Y3, z1[i - 1] + Z3,
                   x2[i - 1] + X32, y2[i - 1] + Y32, z2[i - 1] + Z32) * dt;
-        Y42 = dy2(x1[i - 1] + X3, y1[i - 1] + Y3, z1[i - 1] + Z32,
+        Y42 = dy2(x1[i - 1] + X3, y1[i - 1] + Y3, z1[i - 1] + Z3,
                   x2[i - 1] + X32, y2[i - 1] + Y32, z2[i - 1] + Z32) * dt;
-        Z42 = dz2(x1[i - 1] + X3, y1[i - 1] + Y32, z1[i - 1] + Z32,
+        Z42 = dz2(x1[i - 1] + X3, y1[i - 1] + Y3, z1[i - 1] + Z3,
                   x2[i - 1] + X32, y2[i - 1] + Y32, z2[i - 1] + Z32) * dt;
 
 
