@@ -62,6 +62,9 @@ private:
 
 protected:
     void timerEvent(QTimerEvent *e);
+
+signals:
+    void stepChanged(int value);
 };
 
 #endif // MAINWINDOW_H

@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    num = 2;
+    num = 4;
     curve = new QwtPlotCurve * [num];
     mark = new QwtPlotMarker * [num];
 
@@ -25,21 +25,28 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->qwtPlot->setAxisScale(QwtPlot::yLeft, -20, 20);
 
     solved = false;
-    d = 0.5; //0.5
+
+    d = 0.5;
     a = 0.16;
-    r = 2;////2;
+    r = 3;
     Tmin = 0;
     Tmax = 200;
-    count = 10000;
+    count = 100000;
     t = 0;
+    connect(this, SIGNAL(stepChanged(int)), ui->lcdNumber, SLOT(display(int)));
+    ui->lcdNumber->setNumDigits(trunc(log10(count)));
 
     w = new double[num]; // !!!
     w[0] = 0.98;
     w[1] = 1.02;
+    w[2] = 1.05;
+    w[3] = 0.95;
 
-    double startX[] = {5, 1};
-    double startY[] = {5, 1};
-    double startZ[] = {5, 1};
+    curve[2]->setPen(QPen(Qt::blue,1));
+
+    double startX[] = {5, 1, -3, -7};
+    double startY[] = {5, 1, -3, -7};
+    double startZ[] = {5, 1, -3, -7};
 
     solver(startX, startY, startZ);
     startTimer(1);
@@ -69,7 +76,7 @@ void MainWindow::solver(double *x0, double *y0, double *z0)
         x[j][0] = x0[j]; y[j][0] = y0[j]; z[j][0] = z0[j];
     }
 
-    double dt = (Tmax - Tmin) / count;
+    double dt = (Tmax - Tmin) / 10000;//count;
 
     for (int i = 1; i < count; i++)
     {
@@ -159,6 +166,7 @@ void MainWindow::timerEvent(QTimerEvent *e)
     if (!solved)
         return;
     t++;
+    emit stepChanged(t);
 
     for (int j = 0; j < num; ++j)
     {
