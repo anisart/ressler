@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    num = 4;
+    num = 5;
     curve = new QwtPlotCurve * [num];
     mark = new QwtPlotMarker * [num];
 
@@ -28,32 +28,59 @@ MainWindow::MainWindow(QWidget *parent) :
 
     d = 0.5;
     a = 0.16;
+    mu = 0;//0.15;
     r = 3;
     Tmin = 0;
     Tmax = 200;
-    count = 100000;
+    count = 1000;
     t = 0;
     connect(this, SIGNAL(stepChanged(int)), ui->lcdNumber, SLOT(display(int)));
     ui->lcdNumber->setNumDigits(trunc(log10(count)));
 
     w = new double[num]; // !!!
-    w[0] = 0.98;
-    w[1] = 1.02;
-    w[2] = 1.05;
-    w[3] = 0.95;
+    w[0] = 0.95;
+    w[1] = 0.98;
+    w[2] = 1.00;
+    w[3] = 1.02;
+    w[4] = 1.05;
 
-    curve[2]->setPen(QPen(Qt::blue,1));
+    curve[0]->setPen(QPen(Qt::green,1));
+    curve[1]->setPen(QPen(Qt::blue,1));
+    curve[2]->setPen(QPen(Qt::yellow,1));
+    curve[4]->setPen(QPen(Qt::red,1));
 
-    double startX[] = {5, 1, -3, -7};
-    double startY[] = {5, 1, -3, -7};
-    double startZ[] = {5, 1, -3, -7};
+    double startX[num];
+    double startY[num];
+    double startZ[num];
+
+    for (int i = 0; i < num - E_NUM; ++i)
+    {
+        startX[i] = -8 + rand()%17;
+        startY[i] = -8 + rand()%17;
+        startZ[i] = -8 + rand()%17;
+        qDebug()<<i<<startX[i];
+        qDebug()<<i<<startY[i];
+        qDebug()<<i<<startZ[i];
+    }
+
+    startX[num-1] = 4;
+    startY[num-1] = 4;
+    startZ[num-1] = 1;
+
+//    startX[0] = 8;
+//    startY[0] = -8;
+//    startZ[0] = -8;
 
     solver(startX, startY, startZ);
-    startTimer(1);
+//    startTimer(1);
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(replot()));
+    timer->start(1);
 
-//        curve[0]->setSamples(x[0], y[0], count);
-//        curve[0]->attach(ui->qwtPlot);
-//        ui->qwtPlot->replot();
+//    QwtPlotCurve *curve0 = new QwtPlotCurve;
+//    curve0->setSamples(x[0], y[0], count);
+//    curve0->attach(ui->qwtPlot);
+//    ui->qwtPlot->replot();
 }
 
 MainWindow::~MainWindow()
@@ -161,7 +188,7 @@ void MainWindow::solver(double *x0, double *y0, double *z0)
     solved = true;
 }
 
-void MainWindow::timerEvent(QTimerEvent *e)
+void MainWindow::replot()
 {
     if (!solved)
         return;
@@ -187,10 +214,25 @@ void MainWindow::timerEvent(QTimerEvent *e)
     }
 
     ui->qwtPlot->replot();
-    if (t > count - 3)
+    if (t > count - 2)
     {
-        killTimer(e->timerId());
+        killTimer(timer->timerId());
+        ui->pauseBtn->setEnabled(false);
         return;
     }
 //    qDebug()<<"qq";
+}
+
+void MainWindow::on_pauseBtn_clicked()
+{
+    if (ui->pauseBtn->text() == "Pause")
+    {
+        timer->stop();
+        ui->pauseBtn->setText("Play");
+    }
+    else
+    {
+        timer->start();
+        ui->pauseBtn->setText("Pause");
+    }
 }
