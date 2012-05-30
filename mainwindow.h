@@ -37,8 +37,6 @@ private:
     int count, num;
 
     int t;
-    bool solved;
-    void solver(double *x0, double *y0, double *z0);
     void solveStep(int i);
 
     double dx(double *X, double *Y, double *Z, int k, int l)
@@ -81,6 +79,8 @@ signals:
     void stepChanged(int value);
 private slots:
     void on_pauseBtn_clicked();
+    void on_syncBox_clicked();
+    void on_muBtn_clicked();
 };
 
 #endif // MAINWINDOW_H
