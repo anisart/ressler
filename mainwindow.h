@@ -7,6 +7,7 @@
 #include <qwt_plot_curve.h>
 #include <qwt_plot_marker.h>
 #include <qwt_symbol.h>
+#include <qwt_plot_grid.h>
 
 #define E_NUM 1
 
@@ -27,22 +28,18 @@ private:
     QwtPlotCurve **curve;
     QwtPlotMarker **mark;
     QTimer *timer;
+    QwtPlotGrid *grid;
+
+    double **x, **y, **z;
+    double *w;
+    double d, a, mu, r;
+    double Tmin, Tmax, dt;
+    int count, num;
 
     int t;
-    double **x, **y, **z;
-
-    double *w;
-    double d;
-    double a;
-    double mu;
-    double r;
-    double Tmin;
-    double Tmax;
-    int count;
-    int num;
-
     bool solved;
     void solver(double *x0, double *y0, double *z0);
+    void solveStep(int i);
 
     double dx(double *X, double *Y, double *Z, int k, int l)
     {
