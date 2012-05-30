@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    num = 5;
+    num = 7;
     curve = new QwtPlotCurve * [num];
     mark = new QwtPlotMarker * [num];
 
@@ -41,15 +41,17 @@ MainWindow::MainWindow(QWidget *parent) :
 
     w = new double[num];
     w[0] = 0.95;
-    w[1] = 0.98;
-    w[2] = 1.00;
-    w[3] = 1.02;
-    w[4] = 1.05;
+    w[1] = 0.97;
+    w[2] = 0.99;
+    w[3] = 1.01;
+    w[4] = 1.03;
+    w[5] = 1.05;
+    w[num-1] = 1.05;  // not use with etalon
 
     if (E_NUM)
     {
-        curve[4]->setPen(QPen(Qt::red,1));
-        mark[4]->setSymbol(new QwtSymbol(QwtSymbol::Ellipse, QColor(Qt::transparent), QColor(Qt::red), QSize(5,5)));
+        curve[num-1]->setPen(QPen(Qt::red,1));
+        mark[num-1]->setSymbol(new QwtSymbol(QwtSymbol::Ellipse, QColor(Qt::transparent), QColor(Qt::red), QSize(5,5)));
     }
 
     x = new double * [num];
@@ -78,7 +80,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(replot()));
-    timer->start(1);
 }
 
 MainWindow::~MainWindow()
@@ -189,7 +190,7 @@ void MainWindow::on_pauseBtn_clicked()
     }
     else
     {
-        timer->start();
+        timer->start(1);
         ui->pauseBtn->setText("Pause");
     }
 }

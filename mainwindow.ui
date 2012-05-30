@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Rossler synchronization</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -40,7 +40,7 @@
           <bool>true</bool>
          </property>
          <property name="text">
-          <string>Pause</string>
+          <string>Play</string>
          </property>
         </widget>
        </item>
